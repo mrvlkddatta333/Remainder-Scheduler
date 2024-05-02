@@ -1,0 +1,21 @@
+<!-- templates/search_events.html -->
+
+{% extends "base.html" %}
+
+{% block title %}Search Events{% endblock %}
+
+{% block content %}
+<section class="main search-events">
+    <h1>Search Events</h1>
+    <form action="{{ url_for('main.search_events') }}" method="post">
+        {{ form.csrf_token }}
+        <div class="form-group">
+            {{ form.search_query.label }}
+            {{ form.search_query(placeholder="Search by title, description, or category") }}
+        </div>
+        <div class="form-group">
+            {{ form.submit() }}
+        </div>
+    </form>
+</section>
+{% endblock %}

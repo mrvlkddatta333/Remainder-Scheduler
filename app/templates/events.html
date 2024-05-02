@@ -1,0 +1,46 @@
+<!-- templates/events.html -->
+
+{% extends "base.html" %}
+
+{% block title %}Upcoming Events{% endblock %}
+
+{% block content %}
+<section class="main upcoming-events">
+    <h1>Upcoming Events</h1>
+    <form action="{{ url_for('main.events') }}" method="post">
+        {{ form.csrf_token }}
+        <div class="form-group">
+            {{ form.category.label }}
+            {{ form.category() }}
+        </div>
+        <div class="form-group">
+            {{ form.due_date_from.label }}
+            {{ form.due_date_from(placeholder="YYYY-MM-DD") }}
+        </div>
+        <div class="form-group">
+            {{ form.due_date_to.label }}
+            {{ form.due_date_to(placeholder="YYYY-MM-DD") }}
+        </div>
+        <div class="form-group">
+            {{ form.custom_filter.label }}
+            {{ form.custom_filter(placeholder="Search by title, description, or category") }}
+        </div>
+        <div class="form-group">
+            {{ form.submit() }}
+        </div>
+    </form>
+    {% if tasks %}
+    <ul>
+        {% for task in tasks %}
+        <li>
+            <a href="{{ url_for('main.reminders', task_id=task.id) }}">{{ task.title }}</a>
+            <span>Due: {{ task.due_date.strftime('%Y-%m-%d') }}</span>
+            <span>Category: {{ task.category.name }}</span>
+        </li>
+        {% endfor %}
+    </ul>
+    {% else %}
+    <p>No upcoming events.</p>
+    {% endif %}
+</section>
+{% endblock %}

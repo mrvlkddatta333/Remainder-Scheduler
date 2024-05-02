@@ -1,0 +1,9 @@
+flask==3.0.0
+flask-sqlalchemy
+flask-migrate
+flask-login
+flask-mail
+flask-wtf
+python-dotenv
+email-validator
+mysql-connector-python

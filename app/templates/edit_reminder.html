@@ -1,0 +1,21 @@
+<!-- templates/edit_reminder.html -->
+
+{% extends "base.html" %}
+
+{% block title %}Edit Reminder{% endblock %}
+
+{% block content %}
+<section class="main edit-reminder">
+    <h1>Edit Reminder</h1>
+    <form action="{{ url_for('main.edit_reminder', reminder_id=reminder.id) }}" method="post">
+        {{ form.hidden_tag() }}
+        <div class="form-group">
+            {{ form.reminder_datetime.label }}<br>
+            {{ form.reminder_datetime(value=reminder.reminder_datetime.strftime('%Y-%m-%dT%H:%M'), placeholder="YYYY-MM-DDThh:mm") }}
+        </div>
+        <div class="form-group">
+            {{ form.submit(value="Update Reminder") }}
+        </div>
+    </form>
+</section>
+{% endblock %}

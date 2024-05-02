@@ -1,0 +1,43 @@
+<!-- templates/edit_task.html -->
+
+{% extends "base.html" %}
+
+{% block title %}Edit Task{% endblock %}
+
+{% block content %}
+<section class="main edit-task">
+    <h1>Edit Task</h1>
+    <form action="{{ url_for('main.edit_task', task_id=task.id) }}" method="post" enctype="multipart/form-data">
+        {{ form.hidden_tag() }}
+        <div class="form-group">
+            {{ form.title.label }}<br>
+            {{ form.title(size=120, value=task.title) }}
+        </div>
+        <div class="form-group">
+            {{ form.description.label }}<br>
+            {{ form.description(value=task.description) }}
+        </div>
+        <div class="form-group">
+            {{ form.due_date.label }}<br>
+            {{ form.due_date(value=task.due_date.strftime('%Y-%m-%d')) }}
+        </div>
+        <div class="form-group">
+            {{ form.attachments.label }}<br>
+            {{ form.attachments() }}
+            {% if task.files.count() > 0 %}
+            <p>Current Attachments:</p>
+            <ul>
+                {% for file in task.files %}
+                <li>
+                    <a href="{{ url_for('main.download_file', file_id=file.id) }}">{{ file.file_name }}</a>
+                </li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+        </div>
+        <div class="form-group">
+            {{ form.submit(value="Update Task") }}
+        </div>
+    </form>
+</section>
+{% endblock %}

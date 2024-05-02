@@ -1,0 +1,16 @@
+<!-- templates/index.html -->
+
+{% extends "base.html" %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<section class="main">
+    <h1>Welcome to the Centralized Schedule and Reminder Management System</h1>
+    {% if current_user.is_authenticated %}
+    <p>You are logged in as {{ current_user.username }}.</p>
+    {% else %}
+    <p>Please <a href="{{ url_for('auth.login') }}">log in</a> or <a href="{{ url_for('auth.register') }}">register</a> to get started.</p>
+    {% endif %}
+</section>
+{% endblock %}
